@@ -1,0 +1,27 @@
+{
+	"usuarios": [
+		{ "id": 1, "nombre": "dennis", "clave": "12345678", "email": "dennis2deah@gmail.com" },
+	    { "id": 2, "nombre": "usuario1", "clave": "usuario1234", "email": "usuario1@empresa.com" },
+	    { "id": 3, "nombre": "usuario2", "clave": "usuario1234", "email": "usuario2@empresa.com" }
+	],
+	"peliculas": [
+	    { "usuarioId": 1, "id": 1, "nombre": "Los vengadores", "genero": "Accion" , "duracion" : "120" },
+	    { "usuarioId": 1, "id": 2, "nombre": "Armagedon", "genero": "Aventura" , "duracion" : "150" },
+	    { "usuarioId": 1, "id": 3, "nombre": "Son como ninos 1", "genero": "Comedia" , "duracion" : "140" },
+	    { "usuarioId": 2, "id": 4, "nombre": "Son como ninos 2", "genero": "Comedia" , "duracion" : "120" },
+	    { "usuarioId": 2, "id": 5, "nombre": "Piratas del caribe", "genero": "Aventura" , "duracion" : "100" },
+	    { "usuarioId": 2, "id": 6, "nombre": "Cadena perpetua", "genero": "Suspenso" , "duracion" : "90" },
+	    { "usuarioId": 3, "id": 7, "nombre": "De mendigo a millonario", "genero": "Comedia" , "duracion" : "80" },
+	    { "usuarioId": 3, "id": 8, "nombre": "El aro", "genero": "Terror" , "duracion" : "110" },
+	    { "usuarioId": 3, "id": 9, "nombre": "Toy story", "genero": "Comedia" , "duracion" : "90" }
+	],
+	"comentarios": [
+	    { "peliculaId": 1 , "id": 1, "comentario": "Pelicula recien estrenada este mes" },
+	    { "peliculaId": 1 , "id": 2, "comentario": "Buena trama , pero un poco predecible el final" },
+	    { "peliculaId": 2 , "id": 3, "comentario": "Pelicula con un triste final" },
+	    { "peliculaId": 3 , "id": 4, "comentario": "Buena pelicla para verla en familia" }
+	],
+	"profile": {
+	    "name": "typicode"
+	}
+}
