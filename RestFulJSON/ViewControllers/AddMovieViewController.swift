@@ -26,10 +26,14 @@ class AddMovieViewController: UIViewController {
         
         if movie == nil {
             saveMovieButton.isEnabled = true
+            saveMovieButton.backgroundColor = UIColor.link
             editMovieButton.isEnabled = false
+            editMovieButton.backgroundColor = UIColor.lightGray
         } else {
             saveMovieButton.isEnabled = false
+            saveMovieButton.backgroundColor = UIColor.lightGray
             editMovieButton.isEnabled = true
+            editMovieButton.backgroundColor = UIColor.link
             nameTextField.text = movie!.nombre
             genderTextField.text = movie!.genero
             durationTextField.text = movie!.duracion
@@ -39,13 +43,13 @@ class AddMovieViewController: UIViewController {
     
     @IBAction func addMovieButtonAction(_ sender: Any) {
         
-        methodHTTP(link: link, httpMethod: "POST", data: loadData())
+        methodHttp(link: link, httpMethod: "POST", data: loadData())
         navigationController?.popViewController(animated: true)
     }
     
     @IBAction func editMovieButtonAction(_ sender: Any) {
         
-        methodHTTP(link: "\(link)\(movie!.id)", httpMethod: "PUT", data: loadData())
+        methodHttp(link: "\(link)\(movie!.id)", httpMethod: "PUT", data: loadData())
         navigationController?.popViewController(animated: true)
     }
     
@@ -58,33 +62,7 @@ class AddMovieViewController: UIViewController {
         return data
     }
     
-    func methodHTTP(link: String, httpMethod: String, data: [String: Any]) {
-        let url: URL = URL(string: link)!
-        var request = URLRequest(url: url)
-        let session = URLSession.shared
-        request.httpMethod = httpMethod
-        let params = data
-        
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
-        } catch {
-            print("Se produjo un error en el metodo \(httpMethod)")
-        }
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            if (data != nil) {
-                do {
-                    let _ = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves)
-                } catch {
-                    print("Error en la data")
-                }
-            }
-        })
-        task.resume()
-    }
+    
     
     
     /*

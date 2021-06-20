@@ -21,7 +21,7 @@ class LogInViewController: UIViewController {
         
     }
     
-    func validarUsuario(ruta: String, completed: @escaping () -> ()){
+    func validateUser(ruta: String, completed: @escaping () -> ()){
         let url = URL(string: ruta)
         URLSession.shared.dataTask(with: url!){ (data, response, error) in
             if error == nil{
@@ -43,19 +43,19 @@ class LogInViewController: UIViewController {
         let password = passwordTextField.text!
         let url = ruta + "nombre=\(user)&clave=\(password)"
         let createURL = url.replacingOccurrences(of: " ", with: "%20")
-        validarUsuario(ruta: createURL){
-            if self.users.count <= 0{
-                print("Nombre de usuario y/o contraseña es incorrecto")
+        validateUser(ruta: createURL) {
+            if self.users.count <= 0 {
+                print("Usuario o contraseña incorrecto")
             }else{
-                print("Logeo Exitoso")
-                
-                for data in self.users{
-                    print("id:\(data.id), nombre:\(data.nombre), email:\(data.email)")
+                for data in self.users {
+                    UserDefaults.standard.set(data.id, forKey: "id")
+                    UserDefaults.standard.set(data.nombre, forKey: "username")
+                    UserDefaults.standard.set(data.email, forKey: "email")
+                    UserDefaults.standard.set(data.clave, forKey: "password")
                 }
                self.performSegue(withIdentifier: "segueLogin", sender: nil)
             }
         }
     }
-    
 }
 

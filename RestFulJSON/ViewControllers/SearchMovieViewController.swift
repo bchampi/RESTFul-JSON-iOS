@@ -24,6 +24,7 @@ class SearchMovieViewController: UITableViewController {
         }
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         loadMovies(link: link) {
             self.tableView.reloadData()
@@ -33,8 +34,6 @@ class SearchMovieViewController: UITableViewController {
     @IBAction func logoutButtonAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-
     
     @IBAction func searchMovieButtonAction(_ sender: Any) {
         let name = searchMovieTextField.text!
@@ -48,7 +47,7 @@ class SearchMovieViewController: UITableViewController {
         } else {
             loadMovies(link: createURL) {
                 if self.movies.count <= 0 {
-                    self.showAlert(_title: "Error", "No se encontraron coincidencias para : \(name)", action: "Cancel")
+                    self.showAlertError(_title: "Error", "No se encontraron coincidencias para : \(name)", action: "Cancel")
                 } else {
                     self.tableView.reloadData()
                 }
@@ -72,7 +71,7 @@ class SearchMovieViewController: UITableViewController {
         }.resume()
     }
     
-    func showAlert(_title: String, _ message: String, action: String) {
+    func showAlertError(_title: String, _ message: String, action: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: action, style: .default, handler:nil))
@@ -100,35 +99,31 @@ class SearchMovieViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        
         if editingStyle == .delete {
-            print("delete")
+            showAlert("Borrar Registro", "¿Estás seguro de eliminar la película \(movie.nombre)?", movie.id)
         }
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func showAlert(_ title: String, _ message: String, _ movieId: Int) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Eliminar", style: .destructive, handler: { (action) in
+            let data = ["": ""] as Dictionary<String, Any>
+            methodHttp(link: "\(self.link)/\(movieId)", httpMethod: "DELETE", data: data)
+            self.loadMovies(link: self.link) {
+                self.tableView.reloadData()
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueEditMovie" {
