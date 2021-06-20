@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		481DECE0267E7FF900F9DE7E /* AddMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481DECDF267E7FF900F9DE7E /* AddMovieViewController.swift */; };
+		481DECE3267EAC5300F9DE7E /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481DECE2267EAC5300F9DE7E /* CustomCell.swift */; };
+		481DECE5267EB09800F9DE7E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481DECE4267EB09800F9DE7E /* ProfileViewController.swift */; };
 		4889747B267A753A001F5C64 /* Designable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889747A267A753A001F5C64 /* Designable.swift */; };
 		4889747E267A7872001F5C64 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889747D267A7872001F5C64 /* Users.swift */; };
 		48897481267A9062001F5C64 /* SearchMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48897480267A9062001F5C64 /* SearchMovieViewController.swift */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		481DECDF267E7FF900F9DE7E /* AddMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieViewController.swift; sourceTree = "<group>"; };
+		481DECE2267EAC5300F9DE7E /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		481DECE4267EB09800F9DE7E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4889747A267A753A001F5C64 /* Designable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Designable.swift; sourceTree = "<group>"; };
 		4889747D267A7872001F5C64 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		48897480267A9062001F5C64 /* SearchMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +51,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		481DECDE267E7F3B00F9DE7E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				48E3CD5C2672A39C00E7F1C2 /* LogInViewController.swift */,
+				481DECDF267E7FF900F9DE7E /* AddMovieViewController.swift */,
+				48897480267A9062001F5C64 /* SearchMovieViewController.swift */,
+				481DECE4267EB09800F9DE7E /* ProfileViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		481DECE1267E804800F9DE7E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				481DECE2267EAC5300F9DE7E /* CustomCell.swift */,
+				4889747A267A753A001F5C64 /* Designable.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		48897482267A90B5001F5C64 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,15 +100,14 @@
 			isa = PBXGroup;
 			children = (
 				48897482267A90B5001F5C64 /* Models */,
-				48E3CD5C2672A39C00E7F1C2 /* LogInViewController.swift */,
+				481DECDE267E7F3B00F9DE7E /* ViewControllers */,
+				481DECE1267E804800F9DE7E /* Utils */,
 				48E3CD582672A39C00E7F1C2 /* AppDelegate.swift */,
 				48E3CD5A2672A39C00E7F1C2 /* SceneDelegate.swift */,
 				48E3CD5E2672A39C00E7F1C2 /* Main.storyboard */,
 				48E3CD612672A39D00E7F1C2 /* Assets.xcassets */,
 				48E3CD632672A39D00E7F1C2 /* LaunchScreen.storyboard */,
 				48E3CD662672A39D00E7F1C2 /* Info.plist */,
-				4889747A267A753A001F5C64 /* Designable.swift */,
-				48897480267A9062001F5C64 /* SearchMovieViewController.swift */,
 			);
 			path = RestFulJSON;
 			sourceTree = "<group>";
@@ -160,11 +185,14 @@
 			files = (
 				48897484267A90C3001F5C64 /* Movies.swift in Sources */,
 				48E3CD5D2672A39C00E7F1C2 /* LogInViewController.swift in Sources */,
+				481DECE5267EB09800F9DE7E /* ProfileViewController.swift in Sources */,
 				4889747B267A753A001F5C64 /* Designable.swift in Sources */,
 				4889747E267A7872001F5C64 /* Users.swift in Sources */,
+				481DECE3267EAC5300F9DE7E /* CustomCell.swift in Sources */,
 				48E3CD592672A39C00E7F1C2 /* AppDelegate.swift in Sources */,
 				48E3CD5B2672A39C00E7F1C2 /* SceneDelegate.swift in Sources */,
 				48897481267A9062001F5C64 /* SearchMovieViewController.swift in Sources */,
+				481DECE0267E7FF900F9DE7E /* AddMovieViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

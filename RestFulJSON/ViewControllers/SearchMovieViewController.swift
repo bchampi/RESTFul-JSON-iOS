@@ -14,28 +14,39 @@ class SearchMovieViewController: UITableViewController {
     @IBOutlet weak var searchMovieTextField: UITextField!
     
     var movies = [Movies]()
-    var ruta = "http://localhost:3000/peliculas"
+    var link = "http://localhost:3000/peliculas"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadMovies(ruta: ruta) {
+        loadMovies(link: link) {
             self.tableView.reloadData()
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadMovies(link: link) {
+            self.tableView.reloadData()
+        }
+    }
+    
+    @IBAction func logoutButtonAction(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
     
     @IBAction func searchMovieButtonAction(_ sender: Any) {
         let name = searchMovieTextField.text!
-        let url = ruta + "?nombre_like=\(name)"
+        let url = link + "?nombre_like=\(name)"
         let createURL = url.replacingOccurrences(of: " ", with: "%20")
         
         if name.isEmpty {
-            loadMovies(ruta: ruta) {
+            loadMovies(link: link) {
                 self.tableView.reloadData()
             }
         } else {
-            loadMovies(ruta: createURL) {
+            loadMovies(link: createURL) {
                 if self.movies.count <= 0 {
                     self.showAlert(_title: "Error", "No se encontraron coincidencias para : \(name)", action: "Cancel")
                 } else {
@@ -45,8 +56,8 @@ class SearchMovieViewController: UITableViewController {
         }
     }
     
-    func loadMovies(ruta: String, completed: @escaping () -> ()){
-        let url = URL(string: ruta)
+    func loadMovies(link: String, completed: @escaping () -> ()){
+        let url = URL(string: link)
         URLSession.shared.dataTask(with: url!){ (data, response, error) in
             if error == nil{
                 do {
@@ -69,39 +80,30 @@ class SearchMovieViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return movies.count != 0 ? movies.count : 1
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellMovies", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomCell
         let movie = movies[indexPath.row]
-        cell.textLabel?.text = movie.nombre
-        cell.detailTextLabel?.text = "Genero: \(movie.genero), Duración: \(movie.duracion)"
-
+        
+        cell.nameMovieLabel.text = movie.nombre
+        cell.genderMovieLabel.text = movie.genero
+        cell.durationMovieLabel.text = "\(movie.duracion) min"
+        
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        self.performSegue(withIdentifier: "segueEditMovie", sender: movie)
     }
-    */
 
-    /*
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            print("delete")
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -127,5 +129,12 @@ class SearchMovieViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueEditMovie" {
+            let nextVC = segue.destination as! AddMovieViewController
+            nextVC.movie = sender as? Movies
+        }
+    }
 
 }
